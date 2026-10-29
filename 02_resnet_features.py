@@ -7,27 +7,27 @@ from experiment import load_config, seed_everything, get_device, project_path
 cfg = load_config()
 seed_everything(cfg["seed"], deterministic=cfg["runtime"]["deterministic"])
 
-# 1. 选择计算设备
+# 1. Select the compute device
 device = get_device(cfg)
 print("Device:", device)
 
-# 2. 加载预训练 ResNet-18
+# 2. Load the pretrained ResNet-18 model
 weights = ResNet18_Weights.DEFAULT
 model = resnet18(weights=weights)
 
-# 3. 去掉最后的分类层，输出512维图像特征
+# 3. Remove the final classification layer to output 512-dimensional image features
 model.fc = nn.Identity()
 
-# 4. 移动到设备，并切换到推理模式
+# 4. Move the model to the device and switch to evaluation mode
 model = model.to(device)
 model.eval()
 
-# 5. 模拟两张图像（B, C, H, W）
+# 5. Generate two synthetic images (B, C, H, W)
 images = torch.randn(2, 3, 224, 224).to(device)
 
 print("Input shape:", images.shape)
 
-# 6. 提取特征
+# 6. Extract features
 with torch.no_grad():
     features = model(images)
 
@@ -38,22 +38,22 @@ print("First image feature:", features[0, :10])
 
 from PIL import Image
 
-# 1. 读取真实图像
+# 1. Load a real image
 image = Image.open(project_path(cfg, "demo_image")).convert("RGB")
 print("Original image size:", image.size)
 
-# 2. 使用预训练模型对应的图像预处理
+# 2. Apply the image preprocessing associated with the pretrained weights
 preprocess = weights.transforms()
 image_tensor = preprocess(image)
 
 print("After preprocessing:", image_tensor.shape)
 
-# 3. 增加 batch 维度
+# 3. Add the batch dimension
 image_tensor = image_tensor.unsqueeze(0).to(device)
 
 print("Model input:", image_tensor.shape)
 
-# 4. 提取图像特征
+# 4. Extract image features
 with torch.no_grad():
     image_features = model(image_tensor)
 

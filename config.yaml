@@ -1,12 +1,12 @@
-# 全项目共享配置。修改后，从脚本的第一个单元格重新运行。
+# Shared project configuration. Restart from the first script cell after editing.
 seed: 42
 
 runtime:
   device: auto                 # auto / cpu / cuda / cuda:0
-  deterministic: true         # 使用确定性算法；不支持时明确报错
-  num_workers: 0              # Windows 顶层教学脚本请保持 0
+  deterministic: true         # Require deterministic algorithms; fail if unsupported
+  num_workers: 0              # Keep 0 for the top-level learning scripts on Windows
 
-# 相对路径均以项目根目录为基准，与终端当前目录无关。
+# Relative paths resolve from the project root, independently of the working directory.
 paths:
   data_dir: data
   iu_xray_dir: data/iu_xray
@@ -48,13 +48,13 @@ pairs:
 contrastive:
   batch_size: 32
   temperature: 0.07
-  learning_rate: 0.0001        # 使用小数，避免 YAML 把 1e-4 解析成字符串
+  learning_rate: 0.0001        # Use decimals so YAML does not read 1e-4 as a string
   weight_decay: 0.01
   epochs: 20
   patience: 5
   min_delta: 0.0001
   train_drop_last: true
-  val_drop_last: true         # 保留原实验设置，便于比较
+  val_drop_last: true         # Retain the original setting for comparison
 
 retrieval:
   random_repeats: 20

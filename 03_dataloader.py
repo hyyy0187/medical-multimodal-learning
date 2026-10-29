@@ -1,5 +1,5 @@
 
-# %% 第一部分：导入库并加载模型
+# %% Part 1: Import libraries and load the model
 
 import torch
 import torch.nn as nn
@@ -25,7 +25,7 @@ model = model.to(device)
 model.eval()
 
 
-# %% 第二部分：创建 Dataset
+# %% Part 2: Create a Dataset
 
 class ChestXrayDataset(Dataset):
 
@@ -50,7 +50,7 @@ class ChestXrayDataset(Dataset):
         return image, image_path.name
 
 
-# %% 第三部分：批量提取特征
+# %% Part 3: Extract features in batches
 
 dataset = ChestXrayDataset(
     image_dir=PROJECT_ROOT,
@@ -105,7 +105,7 @@ loader = DataLoader(
 print("Number of images:", len(dataset))
 print("Classes:", dataset.class_to_idx)
 
-# 先测试一个 Batch
+# Test a single batch first
 images, labels = next(iter(loader))
 images = images.to(device)
 

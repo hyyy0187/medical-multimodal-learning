@@ -28,7 +28,7 @@ seed_everything(SEED, deterministic=cfg["runtime"]["deterministic"])
 
 device = get_device(cfg)
 
-# True = 小规模测试；False = 完整训练
+# True = small pilot experiment; False = full training
 PILOT = finetune_cfg["pilot"]
 
 BATCH_SIZE = finetune_cfg["batch_size"]

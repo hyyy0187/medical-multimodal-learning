@@ -390,15 +390,15 @@ checkpoint = torch.load(
     weights_only=True
 )
 
-# 1. 查看保存的信息
+# 1. Inspect the saved metadata
 print("Checkpoint keys:")
 print(checkpoint.keys())
 
-# 2. 查看训练轮数与验证损失
+# 2. Inspect the training epoch and validation loss
 print("Epoch:", checkpoint["epoch"])
 print("Best Val Loss:", checkpoint["best_val_loss"])
 
-# 3. 查看模型参数
+# 3. Inspect the model parameters
 weights = checkpoint["model_state_dict"]
 
 for name, tensor in weights.items():

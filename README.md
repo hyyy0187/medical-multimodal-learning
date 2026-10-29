@@ -142,7 +142,7 @@ finetune:
 
 This is an excerpt; retain the other sections in the supplied configuration. Paths resolve relative to the project root. On Windows, keep `num_workers: 0` because the learning scripts contain top-level execution code. Set `finetune.pilot: true` for the smaller fine-tuning experiment and `false` for the full experiment. Reload from the first cell after changing configuration.
 
-See [CONFIG_GUIDE.md](CONFIG_GUIDE.md) for the seed, device, checkpoint, and cache behavior.
+See [CONFIG_GUIDE.md](CONFIG_GUIDE.md) for the seed, device, checkpoint, and cache behavior. This guide is intentionally retained in Chinese; the other project documentation and source comments are in English.
 
 ## Running the experiments
 

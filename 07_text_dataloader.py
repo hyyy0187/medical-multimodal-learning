@@ -128,14 +128,14 @@ print("Image filenames:", batch["filename"][:3])
 import numpy as np
 from transformers import AutoModel
 
-# 每份报告只编码一次
+# Encode each report only once
 unique_reports = pairs.drop_duplicates(
     subset="uid"
 ).reset_index(drop=True)
 
 print("Unique reports:", len(unique_reports))
 
-# 检查 Token 长度
+# Check token sequence lengths
 tokenized = tokenizer(
     unique_reports["report"].tolist(),
     padding=False,
@@ -151,7 +151,7 @@ print("95th percentile:", np.percentile(lengths, 95))
 max_length = cfg["text"]["max_length"]
 print(f"Truncated at {max_length}:", (lengths > max_length).sum())
 
-# 加载预训练 BERT
+# Load the pretrained BERT model
 device = get_device(cfg)
 
 bert = AutoModel.from_pretrained(
@@ -160,7 +160,7 @@ bert = AutoModel.from_pretrained(
 
 bert.eval()
 
-# 创建 DataLoader
+# Create the DataLoader
 text_dataset = ReportDataset(unique_reports)
 
 text_loader = DataLoader(
@@ -211,14 +211,14 @@ print("Final feature matrix:", all_features.shape)
 
 # %% Part 4: Save features and matching metadata
 
-# 保存文本特征
+# Save text features
 np.savez_compressed(
     DATA_DIR / "iu_bert_report_features.npz",
     report_uids=np.array(report_uids),
     features=all_features
 )
 
-# 建立 uid 到特征矩阵行号的对应关系
+# Map each UID to its row in the feature matrix
 uid_to_row = {
     str(uid): i
     for i, uid in enumerate(report_uids)
@@ -231,7 +231,7 @@ matched["feature_row"] = (
     matched["uid"].map(uid_to_row)
 )
 
-# 确保所有图像都能找到报告特征
+# Ensure that every image has matching report features
 assert matched["feature_row"].notna().all()
 
 matched["feature_row"] = (
@@ -250,12 +250,12 @@ print("All files saved successfully!")
 
 
 # %%
-# 读取 Day 3 保存的文本特征
+# Load the text features saved on Day 3
 data = np.load(
     DATA_DIR / "iu_bert_report_features.npz"
 )
 
-# 查看文件中包含哪些数组
+# Inspect the arrays stored in the file
 print("Keys:", data.files)
 
 for key in data.files:
