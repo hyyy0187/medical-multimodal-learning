@@ -1,0 +1,4 @@
+Split,UID_overlap,Filename_overlap,Patient_overlap,Exact_report_overlap,Image_hash_overlap
+train/val,0,0,UNVERIFIABLE,57.0,0.0
+train/test,0,0,UNVERIFIABLE,54.0,0.0
+val/test,0,0,UNVERIFIABLE,26.0,0.0

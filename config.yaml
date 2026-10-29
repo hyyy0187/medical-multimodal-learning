@@ -1,0 +1,84 @@
+# 全项目共享配置。修改后，从脚本的第一个单元格重新运行。
+seed: 42
+
+runtime:
+  device: auto                 # auto / cpu / cuda / cuda:0
+  deterministic: true         # 使用确定性算法；不支持时明确报错
+  num_workers: 0              # Windows 顶层教学脚本请保持 0
+
+# 相对路径均以项目根目录为基准，与终端当前目录无关。
+paths:
+  data_dir: data
+  iu_xray_dir: data/iu_xray
+  chest_xray_dir: chest_xray
+  results_dir: results
+  demo_image: chest_xray.png
+
+models:
+  text_name: emilyalsentzer/Bio_ClinicalBERT
+  projection_dim: 256
+
+text:
+  demo_max_length: 128
+  max_length: 256
+  batch_size: 8
+
+basics:
+  samples: 2000
+  input_dim: 20
+  informative_features: 5
+  hidden_dim: 64
+  validation_fraction: 0.2
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 20
+
+pneumonia:
+  validation_fraction: 0.2
+  batch_size: 32
+  learning_rate: 0.001
+  epochs: 3
+
+pairs:
+  holdout_fraction: 0.2
+  test_fraction_of_holdout: 0.5
+  batch_size: 8
+  export_batch_size: 16
+
+contrastive:
+  batch_size: 32
+  temperature: 0.07
+  learning_rate: 0.0001        # 使用小数，避免 YAML 把 1e-4 解析成字符串
+  weight_decay: 0.01
+  epochs: 20
+  patience: 5
+  min_delta: 0.0001
+  train_drop_last: true
+  val_drop_last: true         # 保留原实验设置，便于比较
+
+retrieval:
+  random_repeats: 20
+
+finetune:
+  pilot: false
+  pilot_samples: 256
+  pilot_epochs: 2
+  batch_size: 8
+  epochs: 3
+  encoder_learning_rate: 0.00001
+  projection_learning_rate: 0.0001
+  weight_decay: 0.01
+
+robustness:
+  image_batch_size: 16
+  text_batch_size: 8
+  image_noise_levels: [0.0, 0.03, 0.08, 0.15]
+  word_dropout_rates: [0.0, 0.05, 0.15]
+  max_lengths: [256, 128, 64, 32]
+
+survival:
+  n_patients: 1500
+  horizon_months: 3.0
+  train_fraction: 0.7
+  penalizer: 0.05
+  calibration_groups: 4

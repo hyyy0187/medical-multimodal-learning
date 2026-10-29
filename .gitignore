@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Local environments
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+
+# Local datasets and extracted features
+data/
+chest_xray/
+/chest_xray.png
+*.npz
+*.npy
+
+# Model checkpoints
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+
+# Local experiment outputs, with an explicit aggregate-table allowlist
+/results/*
+!/results/retrieval_comparison.csv
+!/results/day6_final_comparison.csv
+!/results/day7_robustness.csv
+!/results/day7_ablation.csv
+!/results/day7_data_audit.csv
+!/results/day7_seen_unseen_comparison.csv
+!/results/training_history.csv
+logs/
+checkpoints/
+runs/
+# Older duplicate exports are retained locally.
+/tables/
+# Local publication manifests and source archives.
+/.publication/
+
+# Temporary files
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+
+# Explicitly curated documentation assets only
+/figures/*
+!/figures/training_curve.png
+!/figures/retrieval_comparison.png
+!/figures/day7_image_robustness.png
+!/figures/day7_text_noise_robustness.png
+!/figures/day7_text_truncation.png
+/reports/*
+!/reports/technical_report.md
+/splits/*
+!/splits/train_uids.csv
+!/splits/val_uids.csv
+!/splits/test_uids.csv
